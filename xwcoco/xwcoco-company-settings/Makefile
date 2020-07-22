@@ -28,10 +28,6 @@ define Package/xwcoco-company-settings/description
 	Language Support Packages.
 endef
 
-define Build/Prepare
-	$(foreach po,$(wildcard ${CURDIR}/i18n/*.po), \
-		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
-endef
 
 define Build/Configure
 endef
@@ -40,9 +36,7 @@ define Build/Compile
 endef
 
 define Package/xwcoco-company-settings/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/*.lmo $(1)/usr/lib/lua/luci/i18n/
 	$(INSTALL_BIN) ./files/zzz-company-settings $(1)/etc/uci-defaults/99-company-settings
 endef
 
